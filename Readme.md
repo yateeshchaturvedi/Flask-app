@@ -118,25 +118,26 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: booksdb
-Start Containers
+```
+### Start Containers
 Use the following command to build the Flask image, start the database, and run the application in detached mode:
-
-Bash
-
+```Bash
 docker-compose up --build -d
-6. Initial User Setup
+```
+### 6. Initial User Setup
 After starting the containers, you must create the initial Admin and Viewer users using the Flask shell.
 
 Step 1: Open Flask Shell
 Find the container name (e.g., flask-book-app-web-1) and execute a shell session:
 
-Bash
+```Bash
 
 docker exec -it <web-container-name> flask shell
+```
 Step 2: Create Admin and Viewer Users
 Run this Python code inside the Flask shell to commit the default users to the database:
 
-Python
+```Python
 
 from app.models import db, User
 
@@ -152,13 +153,14 @@ db.session.add(viewer)
 
 db.session.commit()
 print("Initial users created!")
-Initial Login Credentials
+```
+
+### Initial Login Credentials
 Role	Username	Password
 Admin	admin	admin123
 Viewer	viewer	viewer123
 
-Export to Sheets
-7. Frontend & Templates
+### 7. Frontend & Templates
 The Jinja2 templates handle the application's presentation and user experience, with a focus on role-based dynamic content.
 
 Template	Purpose	Dynamic Logic
@@ -168,15 +170,15 @@ add_book.html / edit_book.html	Forms	Exclusively accessible and visible to Admin
 create_admin.html	Admin creation form	Exclusively accessible and visible to Admins.
 login.html / register.html	Authentication	Standard user login and registration forms.
 
-Export to Sheets
-Navbar Logic
+
+### Navbar Logic
 Public: Books, Login, Register
 
 Viewer: Books, Logout
 
 Admin: Books, Add Book, Create Admin, Logout
 
-8. Application Flow
+### 8. Application Flow
 The core application flow is centered around viewing and managing books, with access control enforced by Flask-Login.
 
 Entry Point: A user opens /ui/books and sees the list of books.
@@ -199,7 +201,7 @@ Session Management: Handled by Flask-Login using current_user to check role and 
 
 Data Interaction: Flask + SQLAlchemy manage all database queries and transactions.
 
-9. Notes & Best Practices
+### 9. Notes & Best Practices
 ✅ Always use hashed passwords (implemented via set_password in the models).
 
 ✅ The first admin must be created manually before additional users can be registered or created.

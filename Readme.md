@@ -33,9 +33,10 @@ The project follows a standard Flask application structure.
 
 ```mermaid
 flowchart TD
-    A[app/] --> A1[__init__.py<br>App factory, DB setup]
-    A --> A2[models.py<br>SQLAlchemy models (User, Book)]
-    A --> A3[routes.py<br>Routes for UI, API, admin]
+    root[Project Root] --> A[app/]
+    A --> A1[__init__.py - App factory, DB setup]
+    A --> A2[models.py - SQLAlchemy models (User, Book)]
+    A --> A3[routes.py - Routes for UI, API, admin]
     A --> A4[templates/]
     A4 --> T1[base.html]
     A4 --> T2[books.html]
@@ -44,17 +45,11 @@ flowchart TD
     A4 --> T5[create_admin.html]
     A4 --> T6[login.html]
     A4 --> T7[register.html]
-    A --> A5[static/ <br>CSS, JS (optional)]
-    B[Dockerfile]
-    C[docker-compose.yml]
-    D[requirements.txt <br>Python dependencies]
-    E[run.py <br>Application entry point]
-
-    root[Project Root] --> A
-    root --> B
-    root --> C
-    root --> D
-    root --> E
+    A --> A5[static/ - CSS, JS (optional)]
+    root --> B[Dockerfile]
+    root --> C[docker-compose.yml]
+    root --> D[requirements.txt - Python dependencies]
+    root --> E[run.py - Application entry point]
 ```
 
 

@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Books</h2>
+<h2>News</h2>
 {% if current_user.is_authenticated and current_user.role == 'admin' %}
-<a href="{{ url_for('main.add_book_form') }}" class="btn btn-success mb-3">Add Book</a>
+<a href="{{ url_for('main.add_book_form') }}" class="btn btn-success mb-3">Add News</a>
 {% endif %}
 
 <table class="table table-bordered">
@@ -18,7 +18,7 @@
         </tr>
     </thead>
     <tbody>
-        {% for book in books %}
+        {% for book in news %}
         <tr>
             <td>{{ book.id }}</td>
             <td>{{ book.title }}</td>

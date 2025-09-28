@@ -10,7 +10,7 @@ def create_app():
     import os
     DB_USER = os.environ.get("POSTGRES_USER", "postgres")
     DB_PASS = os.environ.get("POSTGRES_PASSWORD", "postgres")
-    DB_NAME = os.environ.get("POSTGRES_DB", "booksdb")
+    DB_NAME = os.environ.get("POSTGRES_DB", "newsdb")
     DB_HOST = os.environ.get("POSTGRES_HOST", "db")
     app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}:5432/{DB_NAME}"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Books</h2>
+{% if current_user.is_authenticated and current_user.role == 'admin' %}
+<a href="{{ url_for('main.add_book_form') }}" class="btn btn-success mb-3">Add Book</a>
+{% endif %}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID <a href="{{ url_for('main.books_ui', sort='asc') }}">↑</a> <a href="{{ url_for('main.books_ui', sort='desc') }}">↓</a></th>
+            <th>Title</th>
+            <th>Author</th>
+            {% if current_user.is_authenticated and current_user.role == 'admin' %}
+            <th>Actions</th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for book in books %}
+        <tr>
+            <td>{{ book.id }}</td>
+            <td>{{ book.title }}</td>
+            <td>{{ book.author }}</td>
+            {% if current_user.is_authenticated and current_user.role == 'admin' %}
+            <td>
+                <a href="{{ url_for('main.edit_book_form', book_id=book.id) }}" class="btn btn-warning btn-sm">Edit</a>
+                <a href="{{ url_for('main.delete_book_ui', book_id=book.id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?');">Delete</a>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

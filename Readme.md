@@ -124,7 +124,7 @@ Use the following command to build the Flask image, start the database, and run 
 ```Bash
 docker-compose up --build -d
 ```
-### 6. Initial User Setup
+## 6. Initial User Setup
 After starting the containers, you must create the initial Admin and Viewer users using the Flask shell.
 
 Step 1: Open Flask Shell
@@ -156,52 +156,65 @@ print("Initial users created!")
 ```
 
 ### Initial Login Credentials
-Role	Username	Password
-Admin	admin	admin123
-Viewer	viewer	viewer123
+| Role   | Username | Password   |
+|--------|----------|------------|
+| Admin  | admin    | admin123   |
+| Viewer | viewer   | viewer123  |
 
-### 7. Frontend & Templates
+
+## 7. Frontend & Templates
 The Jinja2 templates handle the application's presentation and user experience, with a focus on role-based dynamic content.
 
-Template	Purpose	Dynamic Logic
-base.html	Master layout	Dynamic navbar based on current_user role.
-books.html	Book list page	Admins see Add/Edit/Delete buttons; others do not.
-add_book.html / edit_book.html	Forms	Exclusively accessible and visible to Admins.
-create_admin.html	Admin creation form	Exclusively accessible and visible to Admins.
-login.html / register.html	Authentication	Standard user login and registration forms.
+| Template               | Purpose                  | Dynamic Logic                                           |
+|------------------------|--------------------------|--------------------------------------------------------|
+| base.html              | Master layout            | Dynamic navbar based on `current_user` role.          |
+| books.html             | Book list page           | Admins see Add/Edit/Delete buttons; others do not.    |
+| add_book.html / edit_book.html | Forms             | Exclusively accessible and visible to Admins.        |
+| create_admin.html      | Admin creation form      | Exclusively accessible and visible to Admins.        |
+| login.html / register.html | Authentication        | Standard user login and registration forms.          |
+
 
 
 ### Navbar Logic
-Public: Books, Login, Register
+| Role    | Navbar Options                        |
+|---------|---------------------------------------|
+| Public  | Books, Login, Register                |
+| Viewer  | Books, Logout                         |
+| Admin   | Books, Add Book, Create Admin, Logout |
 
-Viewer: Books, Logout
 
-Admin: Books, Add Book, Create Admin, Logout
-
-### 8. Application Flow
+## 8. Application Flow
 The core application flow is centered around viewing and managing books, with access control enforced by Flask-Login.
 
-Entry Point: A user opens /ui/books and sees the list of books.
+## Application Flow
 
-Public User: Can only view the list; all modification routes are inaccessible.
+**Entry Point:**  
+A user opens `/ui/books` and sees the list of books.
 
-Viewer User: Logs in, can view books, but is blocked from all management routes (e.g., /ui/add).
+**Public User:**  
+- Can only view the list.  
+- All modification routes are inaccessible.
 
-Admin User: Logs in and has full management access:
+**Viewer User:**  
+- Logs in.  
+- Can view books.  
+- Blocked from all management routes (e.g., `/ui/add`).
 
-Add new books: /ui/add
+**Admin User:**  
+- Logs in and has full management access:  
+  - Add new books: `/ui/add`  
+  - Edit books: `/ui/edit/<id>`  
+  - Delete books: `/ui/delete/<id>`  
+  - Create new admins: `/admin/create`
 
-Edit books: /ui/edit/<id>
+**Session Management:**  
+- Handled by Flask-Login using `current_user` to check role and authentication status.
 
-Delete books: /ui/delete/<id>
+**Data Interaction:**  
+- Flask + SQLAlchemy manage all database queries and transactions.
 
-Create new admins: /admin/create
 
-Session Management: Handled by Flask-Login using current_user to check role and authentication status.
-
-Data Interaction: Flask + SQLAlchemy manage all database queries and transactions.
-
-### 9. Notes & Best Practices
+## 9. Notes & Best Practices
 ✅ Always use hashed passwords (implemented via set_password in the models).
 
 ✅ The first admin must be created manually before additional users can be registered or created.

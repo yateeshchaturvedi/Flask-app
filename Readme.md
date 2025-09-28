@@ -31,25 +31,25 @@ The Flask Book App is a **role-based web application** designed for book managem
 
 The project follows a standard Flask application structure.
 
-```mermaid
-flowchart TD
-    root[Project Root] --> A[app/]
-    A --> A1[__init__.py - App factory, DB setup]
-    A --> A2[models.py - SQLAlchemy models (User, Book)]
-    A --> A3[routes.py - Routes for UI, API, admin]
-    A --> A4[templates/]
-    A4 --> T1[base.html]
-    A4 --> T2[books.html]
-    A4 --> T3[add_book.html]
-    A4 --> T4[edit_book.html]
-    A4 --> T5[create_admin.html]
-    A4 --> T6[login.html]
-    A4 --> T7[register.html]
-    A --> A5[static/ - CSS, JS (optional)]
-    root --> B[Dockerfile]
-    root --> C[docker-compose.yml]
-    root --> D[requirements.txt - Python dependencies]
-    root --> E[run.py - Application entry point]
+```
+Project Root/
+├─ app/
+│   ├─ __init__.py       # App factory and DB setup
+│   ├─ models.py         # SQLAlchemy models (User, Book)
+│   ├─ routes.py         # Routes for UI, API, admin
+│   ├─ templates/        # Jinja2 HTML templates
+│   │   ├─ base.html
+│   │   ├─ books.html
+│   │   ├─ add_book.html
+│   │   ├─ edit_book.html
+│   │   ├─ create_admin.html
+│   │   ├─ login.html
+│   │   └─ register.html
+│   └─ static/           # CSS, JS (optional)
+├─ Dockerfile
+├─ docker-compose.yml
+├─ requirements.txt      # Python dependencies
+└─ run.py                # Application entry point
 ```
 
 

@@ -186,8 +186,6 @@ The Jinja2 templates handle the application's presentation and user experience, 
 ## 8. Application Flow
 The core application flow is centered around viewing and managing books, with access control enforced by Flask-Login.
 
-## Application Flow
-
 **Entry Point:**  
 A user opens `/ui/books` and sees the list of books.
 

@@ -18,8 +18,8 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-class Book(db.Model):
-    __tablename__ = "books"
+class News(db.Model):
+    __tablename__ = "news"
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
     author = db.Column(db.String(200), nullable=False)

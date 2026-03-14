@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_user, login_required, logout_user, current_user
-from .models import db, User, Book
+from .models import db, User, News
 from functools import wraps
 
 main = Blueprint("main", __name__)
@@ -85,12 +85,12 @@ def logout():
     return redirect(url_for("main.login"))
 
 # --- Book CRUD ---
-@main.route("/ui/books")
+@main.route("/ui/news")
 def books_ui():
     sort_order = request.args.get("sort", "asc").lower()
     from sqlalchemy import asc, desc
-    books = Book.query.order_by(desc(Book.id) if sort_order=="desc" else asc(Book.id)).all()
-    return render_template("books.html", books=books, sort_order=sort_order)
+    news = News.query.order_by(desc(News.id) if sort_order=="desc" else asc(News.id)).all()
+    return render_template("books.html", news=news, sort_order=sort_order)
 
 @main.route("/ui/add", methods=["GET", "POST"])
 @admin_required
@@ -98,7 +98,7 @@ def add_book_form():
     if request.method == "POST":
         title = request.form["title"]
         author = request.form["author"]
-        new_book = Book(title=title, author=author)
+        new_book = News(title=title, author=author)
         db.session.add(new_book)
         db.session.commit()
         return redirect(url_for("main.books_ui"))
@@ -107,7 +107,7 @@ def add_book_form():
 @main.route("/ui/edit/<int:book_id>", methods=["GET", "POST"])
 @admin_required
 def edit_book_form(book_id):
-    book = Book.query.get_or_404(book_id)
+    book = News.query.get_or_404(book_id)
     if request.method == "POST":
         book.title = request.form["title"]
         book.author = request.form["author"]
@@ -118,7 +118,7 @@ def edit_book_form(book_id):
 @main.route("/ui/delete/<int:book_id>")
 @admin_required
 def delete_book_ui(book_id):
-    book = Book.query.get_or_404(book_id)
+    book = News.query.get_or_404(book_id)
     db.session.delete(book)
     db.session.commit()
     return redirect(url_for("main.books_ui"))
